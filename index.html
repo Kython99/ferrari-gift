@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For You 🏎️</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap');
+
+    :root {
+      --ferrari-red: #E8002D;
+      --dark: #0A0A0A;
+      --cream: #F5F0EB;
+      --gold: #C9A84C;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--dark);
+      color: var(--cream);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Hero */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 50% 60%, rgba(232,0,45,0.15) 0%, transparent 60%),
+        url('https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=1920&q=80') center/cover no-repeat;
+      opacity: 0.6;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(10,10,10,0.3) 0%, rgba(10,10,10,0.7) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      animation: fadeUp 1.5s ease forwards;
+      opacity: 0;
+    }
+
+    .ferrari-logo {
+      width: 80px;
+      margin-bottom: 2rem;
+      filter: brightness(0) invert(1);
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 8vw, 6rem);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 em {
+      color: var(--ferrari-red);
+      font-style: italic;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: rgba(245,240,235,0.7);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: var(--ferrari-red);
+      margin: 2rem auto;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      animation: bounce 2s infinite;
+    }
+
+    .scroll-hint span {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+
+    /* Gift Section */
+    .gift-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, #0A0A0A 0%, #1a0000 100%);
+    }
+
+    .gift-card {
+      max-width: 700px;
+      text-align: center;
+      padding: 3rem 2.5rem;
+      border: 1px solid rgba(232,0,45,0.2);
+      border-radius: 2px;
+      background: rgba(232,0,45,0.03);
+      position: relative;
+    }
+
+    .gift-card::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: -1px; right: -1px; bottom: -1px;
+      border: 1px solid rgba(232,0,45,0.4);
+      border-radius: 2px;
+      pointer-events: none;
+    }
+
+    .gift-card .ribbon {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--ferrari-red);
+      color: white;
+      padding: 0.3rem 1.5rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+
+    .gift-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+      color: var(--cream);
+    }
+
+    .gift-card .message {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      line-height: 1.9;
+      color: rgba(245,240,235,0.85);
+      margin-bottom: 2rem;
+    }
+
+    .gift-card .signature {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: var(--gold);
+      font-size: 1rem;
+    }
+
+    /* Specs */
+    .specs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(232,0,45,0.2);
+      margin-top: 3rem;
+    }
+
+    .spec-item {
+      background: var(--dark);
+      padding: 1.5rem 1rem;
+      text-align: center;
+    }
+
+    .spec-item .value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--ferrari-red);
+    }
+
+    .spec-item .label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245,240,235,0.5);
+      margin-top: 0.3rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      border-top: 1px solid rgba(245,240,235,0.1);
+    }
+
+    footer p {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245,240,235,0.3);
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 600px) {
+      .specs { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <img class="ferrari-logo" src="https://upload.wikimedia.org/wikipedia/sco/b/b5/Ferrari_Logo.svg" alt="Ferrari">
+      <h1>For the one who<br><em>deserves</em> everything</h1>
+      <div class="divider"></div>
+      <p>A gift, a promise, a dream</p>
+    </div>
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Gift Card -->
+  <section class="gift-section fade-in">
+    <div class="gift-card">
+      <div class="ribbon">Special Delivery</div>
+      <h2>Congratulations 🎉</h2>
+      <p class="message">
+        "Here's to the road ahead — may it be as thrilling as a lap around Fiorano.<br>
+        This is more than a page. It's a reminder that you're capable of<br>
+        extraordinary things. Now go make it happen. 🏎️💨"
+      </p>
+      <div class="divider" style="margin: 1.5rem auto;"></div>
+      <p class="signature">— With all the best, Kaien</p>
+
+      <div class="specs">
+        <div class="spec-item">
+          <div class="value">720</div>
+          <div class="label">HP Awaiting</div>
+        </div>
+        <div class="spec-item">
+          <div class="value">3.4s</div>
+          <div class="label">0–100 KM/H</div>
+        </div>
+        <div class="spec-item">
+          <div class="value">211</div>
+          <div class="label">Top Speed KM/H</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Ferrari S.p.A. — Built with ❤️ by Kaien</p>
+  </footer>
+
+  <script>
+    // Scroll fade-in
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
